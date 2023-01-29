@@ -4,13 +4,14 @@ import {
   Wrapper,
   WriterWrapper,
   Writer,
-  TitleWrapper,
   Title,
-  ContentsWrapper,
   Contents,
-  Icon,
-  date,
-  DateWrapper,
+  Date,
+  Avatar,
+  Info,
+  CardWrapper,
+  Header,
+  Body,
 } from "../../../styles/detail-board";
 
 const FETCH_BOARD = gql`
@@ -20,6 +21,7 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
+      createdAt
     }
   }
 `;
@@ -35,19 +37,21 @@ const FetchBoardPage = () => {
   return (
     <>
       <Wrapper>
-        <WriterWrapper>
-          <Icon></Icon>
-          <DateWrapper>
-            <Writer>{data?.fetchBoard?.writer}</Writer>
-            <date>Date: 2023.01.25</date>
-          </DateWrapper>
-        </WriterWrapper>
-        <TitleWrapper>
-          <Title>{data?.fetchBoard?.title}</Title>
-        </TitleWrapper>
-        <ContentsWrapper>
-          <Contents>{data?.fetchBoard?.contents}</Contents>
-        </ContentsWrapper>
+        <CardWrapper>
+          <Header>
+            <WriterWrapper>
+              <Avatar src="/images/avatar.png" />
+              <Info>
+                <Writer>{data?.fetchBoard?.writer}</Writer>
+                <Date>{data?.fetchBoard?.createdAt}</Date>
+              </Info>
+            </WriterWrapper>
+          </Header>
+          <Body>
+            <Title>{data?.fetchBoard?.title}</Title>
+            <Contents>{data?.fetchBoard?.contents}</Contents>
+          </Body>
+        </CardWrapper>
       </Wrapper>
     </>
   );
