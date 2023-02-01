@@ -62,3 +62,35 @@ export const Contents = styled.div`
   font-size: 16px;
   line-height: 24px;
 `;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 87px;
+  width: 100%;
+`;
+export const ListBtn = styled.button`
+  width: 179px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #bdbdbd;
+  margin-right: 24px;
+  text-align: center;
+  cursor: pointer;
+`;
+export const ReviseBtn = styled.button`
+  width: 179px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #bdbdbd;
+  margin-right: 24px;
+  cursor: pointer;
+`;
+export const DeleteBtn = styled.button`
+  width: 179px;
+  height: 45px;
+  background: #ffffff;
+  border: 1px solid #bdbdbd;
+  cursor: pointer;
+`;

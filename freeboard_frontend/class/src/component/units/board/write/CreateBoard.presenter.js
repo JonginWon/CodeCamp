@@ -10,6 +10,7 @@ const CreateBoardPresenter = ({
   passwordError,
   titleError,
   contentsError,
+  btnColor,
 }) => {
   return (
     <>
@@ -85,7 +86,7 @@ const CreateBoardPresenter = ({
         </Styles.OptionWrapper>
 
         <Styles.ButtonWrapper>
-          <Styles.SubmitButton onClick={onClickSubmit}>
+          <Styles.SubmitButton onClick={onClickSubmit} btnColor={btnColor}>
             등록하기
           </Styles.SubmitButton>
         </Styles.ButtonWrapper>

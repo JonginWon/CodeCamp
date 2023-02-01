@@ -1,6 +1,6 @@
 import * as Styles from "./DetailBoard.styles";
 
-const DetailBoardPresenter = ({ data }) => {
+const DetailBoardPresenter = ({ data, onClickDelete }) => {
   return (
     <>
       <Styles.Wrapper>
@@ -19,6 +19,11 @@ const DetailBoardPresenter = ({ data }) => {
             <Styles.Contents>{data?.fetchBoard?.contents}</Styles.Contents>
           </Styles.Body>
         </Styles.CardWrapper>
+        <Styles.ButtonWrapper>
+          <Styles.ListBtn>목록으로</Styles.ListBtn>
+          <Styles.ReviseBtn>수정하기</Styles.ReviseBtn>
+          <Styles.DeleteBtn onClick={onClickDelete}>삭제하기</Styles.DeleteBtn>
+        </Styles.ButtonWrapper>
       </Styles.Wrapper>
     </>
   );

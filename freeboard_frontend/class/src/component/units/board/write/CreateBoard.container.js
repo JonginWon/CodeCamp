@@ -17,17 +17,39 @@ const CreateBoardContainer = () => {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
+  const [btnColor, setBtnColor] = useState(false);
+
   const onChangeWriter = (e) => {
     setWriter(e.target.value);
+    if (e.target.value && password && title && contents) {
+      setBtnColor(true);
+    } else {
+      setBtnColor(false);
+    }
   };
   const onChangePassword = (e) => {
     setPassword(e.target.value);
+    if (writer && e.target.value && title && contents) {
+      setBtnColor(true);
+    } else {
+      setBtnColor(false);
+    }
   };
   const onChangeTitle = (e) => {
     setTitle(e.target.value);
+    if (writer && password && e.target.value && contents) {
+      setBtnColor(true);
+    } else {
+      setBtnColor(false);
+    }
   };
   const onChangeContents = (e) => {
     setContents(e.target.value);
+    if (writer && password && title && e.target.value) {
+      setBtnColor(true);
+    } else {
+      setBtnColor(false);
+    }
   };
 
   const onClickSubmit = async () => {
@@ -86,6 +108,7 @@ const CreateBoardContainer = () => {
         passwordError={passwordError}
         titleError={titleError}
         contentsError={contentsError}
+        btnColor={btnColor}
       />
     </>
   );
