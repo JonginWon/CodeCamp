@@ -10,3 +10,11 @@ export const FETCH_BOARDS = gql`
     }
   }
 `;
+
+export const FETCH_BOARD = gql`
+  query fetchBoard($boardId: Id!) {
+    fetchBoard(boardId: $boardId) {
+      _id
+    }
+  }
+`;

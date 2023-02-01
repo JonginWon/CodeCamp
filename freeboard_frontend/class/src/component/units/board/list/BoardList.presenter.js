@@ -1,7 +1,7 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../commons/libraries/utils";
 
-const BoardListPresenter = ({ data }) => {
+const BoardListPresenter = ({ data, onClickMoveToDetailBoard }) => {
   console.log(data);
   return (
     <>
@@ -14,9 +14,11 @@ const BoardListPresenter = ({ data }) => {
           <S.ColumnBasic>날짜</S.ColumnBasic>
         </S.Row>
         {data?.fetchBoards.map((el, index) => (
-          <S.Row>
+          <S.Row key={el._id}>
             <S.ColumnBasic>{index}</S.ColumnBasic>
-            <S.ColumnTitle>{el.title}</S.ColumnTitle>
+            <S.ColumnTitle id={el._id} onClick={onClickMoveToDetailBoard}>
+              {el.title}
+            </S.ColumnTitle>
             <S.ColumnBasic>{el.writer}</S.ColumnBasic>
             <S.ColumnBasic>{getDate(el.createdAt)}</S.ColumnBasic>
           </S.Row>
