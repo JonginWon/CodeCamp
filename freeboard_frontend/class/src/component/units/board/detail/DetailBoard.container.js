@@ -21,9 +21,22 @@ const DetailBoardContainer = () => {
     });
   };
 
+  const onClickMoveToEditPage = () => {
+    router.push(`/boards/${router.query.boardId}/edit`);
+  };
+
+  const onClickMoveToListPage = () => {
+    router.push(`/boards`);
+  };
+
   return (
     <>
-      <DetailBoardPresenter data={data} onClickDelete={onClickDelete} />
+      <DetailBoardPresenter
+        data={data}
+        onClickDelete={onClickDelete}
+        onClickMoveToEditPage={onClickMoveToEditPage}
+        onClickMoveToListPage={onClickMoveToListPage}
+      />
     </>
   );
 };

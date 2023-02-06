@@ -30,7 +30,7 @@ export const Title = styled.div`
 `;
 
 export const UserWrapper = styled.div`
-  display: flex;
+  display: ${(props) => (props.isEdit ? "none" : "flex")};
   width: 85%;
   flex-direction: row;
   justify-content: space-between;

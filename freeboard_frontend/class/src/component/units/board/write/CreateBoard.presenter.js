@@ -11,12 +11,15 @@ const CreateBoardPresenter = ({
   titleError,
   contentsError,
   btnColor,
+  isEdit,
+  data,
+  onClickUpdate,
 }) => {
   return (
     <>
       <Styles.Wrapper>
-        <Styles.Title>게시물 등록</Styles.Title>
-        <Styles.UserWrapper>
+        <Styles.Title>게시물 {isEdit ? "수정" : "등록"}</Styles.Title>
+        <Styles.UserWrapper isEdit={isEdit}>
           <Styles.InputWrapper>
             <Styles.Label>작성자</Styles.Label>
             <Styles.Writer
@@ -40,7 +43,9 @@ const CreateBoardPresenter = ({
         <Styles.InputWrapper>
           <Styles.Label>제목</Styles.Label>
           <Styles.Subject
-            placeholder="제목을 작성해주세요."
+            defaultValue={
+              isEdit ? data?.fetchBoard?.title : "제목을 작성해주세요."
+            }
             onChange={onChangeTitle}
           />
           <Styles.Error>{titleError}</Styles.Error>
@@ -49,7 +54,9 @@ const CreateBoardPresenter = ({
         <Styles.InputWrapper>
           <Styles.Label>내용</Styles.Label>
           <Styles.Contents
-            placeholder="내용을 작성해주세요."
+            defaultValue={
+              isEdit ? data?.fetchBoard?.contents : "내용을 작성해주세요."
+            }
             onChange={onChangeContents}
           />
           <Styles.Error>{contentsError}</Styles.Error>
@@ -86,8 +93,11 @@ const CreateBoardPresenter = ({
         </Styles.OptionWrapper>
 
         <Styles.ButtonWrapper>
-          <Styles.SubmitButton onClick={onClickSubmit} btnColor={btnColor}>
-            등록하기
+          <Styles.SubmitButton
+            onClick={isEdit ? onClickUpdate : onClickSubmit}
+            btnColor={btnColor}
+          >
+            {isEdit ? "수정" : "등록"}하기
           </Styles.SubmitButton>
         </Styles.ButtonWrapper>
       </Styles.Wrapper>

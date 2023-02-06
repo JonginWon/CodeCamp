@@ -1,12 +1,14 @@
 import { useRouter } from "next/router";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useState } from "react";
-import { CREATE_BOARD } from "./CreateBoard.query";
+import { CREATE_BOARD, UPDATE_BOARD } from "./CreateBoard.query";
 import CreateBoardPresenter from "./CreateBoard.presenter";
+import { FETCH_BOARD } from "../detail/DetailBoard.query";
 
-const CreateBoardContainer = () => {
+const CreateBoardContainer = ({ isEdit }) => {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -96,6 +98,31 @@ const CreateBoardContainer = () => {
     }
   };
 
+  const { data } = useQuery(FETCH_BOARD, {
+    variables: {
+      boardId: router.query.boardId,
+    },
+  });
+
+  const onClickUpdate = async () => {
+    try {
+      const result = await updateBoard({
+        variables: {
+          updateBoardInput: {
+            title,
+            contents,
+          },
+          boardId: router.query.boardId,
+          password,
+        },
+      });
+      alert("게시글이 수정되었습니다.");
+      router.push(`/boards/${result.data.updateBoard._id}`);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <CreateBoardPresenter
@@ -109,6 +136,9 @@ const CreateBoardContainer = () => {
         titleError={titleError}
         contentsError={contentsError}
         btnColor={btnColor}
+        isEdit={isEdit}
+        data={data}
+        onClickUpdate={onClickUpdate}
       />
     </>
   );

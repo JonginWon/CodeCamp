@@ -3,7 +3,7 @@ import CreateBoardContainer from "../../../src/component/units/board/write/Creat
 const PostPage = () => {
   return (
     <>
-      <CreateBoardContainer />
+      <CreateBoardContainer isEdit={false} />
     </>
   );
 };
