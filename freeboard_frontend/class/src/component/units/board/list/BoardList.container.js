@@ -15,11 +15,20 @@ const BoardListContainer = () => {
     }
   };
 
+  const onClickMoveToBoardNew = async (event) => {
+    try {
+      router.push(`/boards/new`);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <BoardListPresenter
         data={data}
         onClickMoveToDetailBoard={onClickMoveToDetailBoard}
+        onClickMoveToBoardNew={onClickMoveToBoardNew}
       />
     </>
   );

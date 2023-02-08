@@ -12,7 +12,7 @@ const DetailBoardPresenter = ({
         <Styles.CardWrapper>
           <Styles.Header>
             <Styles.WriterWrapper>
-              <Styles.Avatar src="/images/avatar.png" />
+              <Styles.Avatar src="/images/board/avatar.png" />
               <Styles.Info>
                 <Styles.Writer>{data?.fetchBoard?.writer}</Styles.Writer>
                 <Styles.Date>{data?.fetchBoard?.createdAt}</Styles.Date>

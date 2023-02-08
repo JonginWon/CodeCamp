@@ -5,7 +5,7 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./CreateBoard.query";
 import CreateBoardPresenter from "./CreateBoard.presenter";
 import { FETCH_BOARD } from "../detail/DetailBoard.query";
 
-const CreateBoardContainer = ({ isEdit }) => {
+const CreateBoardContainer = ({ isEdit, data }) => {
   const router = useRouter();
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
@@ -21,33 +21,51 @@ const CreateBoardContainer = ({ isEdit }) => {
 
   const [btnColor, setBtnColor] = useState(false);
 
-  const onChangeWriter = (e) => {
-    setWriter(e.target.value);
-    if (e.target.value && password && title && contents) {
+  const onChangeWriter = (event) => {
+    setWriter(event.target.value);
+    if (event.target.value !== "") {
+      setWriterError("");
+    }
+
+    if (event.target.value && password && title && contents) {
       setBtnColor(true);
     } else {
       setBtnColor(false);
     }
   };
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-    if (writer && e.target.value && title && contents) {
+  const onChangePassword = (event) => {
+    setPassword(event.target.value);
+    if (event.target.value !== "") {
+      setPasswordError("");
+    }
+
+    if (writer && event.target.value && title && contents) {
       setBtnColor(true);
     } else {
       setBtnColor(false);
     }
   };
-  const onChangeTitle = (e) => {
-    setTitle(e.target.value);
-    if (writer && password && e.target.value && contents) {
+
+  const onChangeTitle = (event) => {
+    setTitle(event.target.value);
+    if (event.target.value !== "") {
+      setTitleError("");
+    }
+
+    if (writer && password && event.target.value && contents) {
       setBtnColor(true);
     } else {
       setBtnColor(false);
     }
   };
-  const onChangeContents = (e) => {
-    setContents(e.target.value);
-    if (writer && password && title && e.target.value) {
+
+  const onChangeContents = (event) => {
+    setContents(event.target.value);
+    if (event.target.value !== "") {
+      setContentsError("");
+    }
+
+    if (writer && password && title && event.target.value) {
       setBtnColor(true);
     } else {
       setBtnColor(false);
@@ -98,31 +116,26 @@ const CreateBoardContainer = ({ isEdit }) => {
     }
   };
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: {
-      boardId: router.query.boardId,
-    },
-  });
-
   const onClickUpdate = async () => {
     try {
+      const myVariables = {
+        boardId: router.query.boardId,
+        updateBoardInput: {},
+      };
+      if (password) myVariables.password = password;
+      if (title) myVariables.updateBoardInput.title = title;
+      if (contents) myVariables.updateBoardInput.contents = contents;
+
       const result = await updateBoard({
-        variables: {
-          updateBoardInput: {
-            title,
-            contents,
-          },
-          boardId: router.query.boardId,
-          password,
-        },
+        variables: myVariables,
       });
+
       alert("게시글이 수정되었습니다.");
       router.push(`/boards/${result.data.updateBoard._id}`);
     } catch (error) {
       console.log(error.message);
     }
   };
-
   return (
     <>
       <CreateBoardPresenter

@@ -1,7 +1,11 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../commons/libraries/utils";
 
-const BoardListPresenter = ({ data, onClickMoveToDetailBoard }) => {
+const BoardListPresenter = ({
+  data,
+  onClickMoveToDetailBoard,
+  onClickMoveToBoardNew,
+}) => {
   console.log(data);
   return (
     <>
@@ -24,7 +28,12 @@ const BoardListPresenter = ({ data, onClickMoveToDetailBoard }) => {
           </S.Row>
         ))}
         <S.TableBottom />
-        <div></div>
+        <S.Footer>
+          <S.Button onClick={onClickMoveToBoardNew}>
+            <S.PencilIcon src="/images/board/list/write.png" />
+            게시물 등록하기
+          </S.Button>
+        </S.Footer>
       </S.Wrapper>
     </>
   );

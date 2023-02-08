@@ -19,10 +19,11 @@ const CreateBoardPresenter = ({
     <>
       <Styles.Wrapper>
         <Styles.Title>게시물 {isEdit ? "수정" : "등록"}</Styles.Title>
-        <Styles.UserWrapper isEdit={isEdit}>
+        <Styles.UserWrapper>
           <Styles.InputWrapper>
             <Styles.Label>작성자</Styles.Label>
             <Styles.Writer
+              defaultValue={data?.fetchBoard.writer}
               placeholder="이름을 적어주세요."
               onChange={onChangeWriter}
             />
@@ -33,8 +34,8 @@ const CreateBoardPresenter = ({
             <Styles.Label>비밀번호</Styles.Label>
             <Styles.Password
               type="password"
-              placeholder="비밀번호를 입력해주시요."
               onChange={onChangePassword}
+              placeholder="비밀번호를 입력해주세요."
             />
             <Styles.Error>{passwordError}</Styles.Error>
           </Styles.InputWrapper>
@@ -43,9 +44,8 @@ const CreateBoardPresenter = ({
         <Styles.InputWrapper>
           <Styles.Label>제목</Styles.Label>
           <Styles.Subject
-            defaultValue={
-              isEdit ? data?.fetchBoard?.title : "제목을 작성해주세요."
-            }
+            defaultValue={data?.fetchBoard?.title}
+            placeholder="제목을 작성해주세요."
             onChange={onChangeTitle}
           />
           <Styles.Error>{titleError}</Styles.Error>
@@ -54,9 +54,8 @@ const CreateBoardPresenter = ({
         <Styles.InputWrapper>
           <Styles.Label>내용</Styles.Label>
           <Styles.Contents
-            defaultValue={
-              isEdit ? data?.fetchBoard?.contents : "내용을 작성해주세요."
-            }
+            defaultValue={data?.fetchBoard?.contents}
+            placeholder="내용을 작성해주세요."
             onChange={onChangeContents}
           />
           <Styles.Error>{contentsError}</Styles.Error>
