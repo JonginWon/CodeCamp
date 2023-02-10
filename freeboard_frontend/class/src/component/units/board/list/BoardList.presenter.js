@@ -6,7 +6,6 @@ const BoardListPresenter = ({
   onClickMoveToDetailBoard,
   onClickMoveToBoardNew,
 }) => {
-  console.log(data);
   return (
     <>
       <S.Wrapper>

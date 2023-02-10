@@ -1,4 +1,5 @@
 import * as Styles from "./DetailBoard.styles";
+import { getDate } from "../../../commons/libraries/utils";
 
 const DetailBoardPresenter = ({
   data,
@@ -15,7 +16,9 @@ const DetailBoardPresenter = ({
               <Styles.Avatar src="/images/board/avatar.png" />
               <Styles.Info>
                 <Styles.Writer>{data?.fetchBoard?.writer}</Styles.Writer>
-                <Styles.Date>{data?.fetchBoard?.createdAt}</Styles.Date>
+                <Styles.Date>
+                  Date: {getDate(data?.fetchBoard?.createdAt)}
+                </Styles.Date>
               </Styles.Info>
             </Styles.WriterWrapper>
           </Styles.Header>

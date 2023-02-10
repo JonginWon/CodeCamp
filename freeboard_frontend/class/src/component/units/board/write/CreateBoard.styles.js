@@ -66,6 +66,7 @@ export const Contents = styled.textarea`
   padding-top: 16px;
   background: #ffffff;
   border: 1px solid #bdbdbd;
+  resize: none;
 `;
 
 export const ZipcodeWrapper = styled.div`

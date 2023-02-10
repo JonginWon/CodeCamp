@@ -75,23 +75,15 @@ const CreateBoardContainer = ({ isEdit, data }) => {
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
-    } else {
-      setWriterError("");
     }
     if (!password) {
       setPasswordError("비밀번호를 입력해주세요.");
-    } else {
-      setPasswordError("");
     }
     if (!title) {
       setTitleError("제목을 입력해주세요.");
-    } else {
-      setTitleError("");
     }
     if (!contents) {
       setContentsError("내용을 입력해주세요.");
-    } else {
-      setContentsError("");
     }
 
     try {
@@ -133,7 +125,7 @@ const CreateBoardContainer = ({ isEdit, data }) => {
       alert("게시글이 수정되었습니다.");
       router.push(`/boards/${result.data.updateBoard._id}`);
     } catch (error) {
-      console.log(error.message);
+      alert(error.message);
     }
   };
   return (
