@@ -1,11 +1,12 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../commons/libraries/utils";
+import { IBoardListProps } from "./BoardList.types";
 
 const BoardListPresenter = ({
   data,
   onClickMoveToDetailBoard,
   onClickMoveToBoardNew,
-}) => {
+}: IBoardListProps) => {
   return (
     <>
       <S.Wrapper>

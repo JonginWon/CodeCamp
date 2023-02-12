@@ -1,4 +1,5 @@
 import * as Styles from "./CreateBoard.styles";
+import { ICreateBoardProps } from "./CreateBoard.types";
 
 const CreateBoardPresenter = ({
   onChangeWriter,
@@ -14,7 +15,7 @@ const CreateBoardPresenter = ({
   isEdit,
   data,
   onClickUpdate,
-}) => {
+}: ICreateBoardProps) => {
   return (
     <>
       <Styles.Wrapper>
@@ -23,7 +24,7 @@ const CreateBoardPresenter = ({
           <Styles.InputWrapper>
             <Styles.Label>작성자</Styles.Label>
             <Styles.Writer
-              defaultValue={data?.fetchBoard.writer}
+              defaultValue={String(data?.fetchBoard.writer)}
               placeholder="이름을 적어주세요."
               onChange={onChangeWriter}
             />

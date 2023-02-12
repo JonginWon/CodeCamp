@@ -1,14 +1,27 @@
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { CREATE_BOARD, UPDATE_BOARD } from "./CreateBoard.query";
 import CreateBoardPresenter from "./CreateBoard.presenter";
 import { FETCH_BOARD } from "../detail/DetailBoard.query";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+  IQuery,
+} from "../../../../commons/types/generated/types";
+import { IEditBoard, IUpdateBoardInput } from "./CreateBoard.types";
 
-const CreateBoardContainer = ({ isEdit, data }) => {
+const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
   const router = useRouter();
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -18,10 +31,9 @@ const CreateBoardContainer = ({ isEdit, data }) => {
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
-
   const [btnColor, setBtnColor] = useState(false);
 
-  const onChangeWriter = (event) => {
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
     if (event.target.value !== "") {
       setWriterError("");
@@ -33,7 +45,8 @@ const CreateBoardContainer = ({ isEdit, data }) => {
       setBtnColor(false);
     }
   };
-  const onChangePassword = (event) => {
+
+  const onChangePassword = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
     if (event.target.value !== "") {
       setPasswordError("");
@@ -46,7 +59,7 @@ const CreateBoardContainer = ({ isEdit, data }) => {
     }
   };
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
     if (event.target.value !== "") {
       setTitleError("");
@@ -59,7 +72,7 @@ const CreateBoardContainer = ({ isEdit, data }) => {
     }
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setContents(event.target.value);
     if (event.target.value !== "") {
       setContentsError("");
@@ -101,31 +114,38 @@ const CreateBoardContainer = ({ isEdit, data }) => {
         });
         console.log(result);
         alert("게시글이 등록되었습니다.");
-        router.push(`/boards/${result.data.createBoard._id}`);
+        router.push(`/boards/${result?.data?.createBoard._id}`);
       }
     } catch (error) {
-      console.log(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
 
-  const onClickUpdate = async () => {
-    try {
-      const myVariables = {
-        boardId: router.query.boardId,
-        updateBoardInput: {},
-      };
-      if (password) myVariables.password = password;
-      if (title) myVariables.updateBoardInput.title = title;
-      if (contents) myVariables.updateBoardInput.contents = contents;
+  interface IMyVariables {
+    boardId: string;
+    password: string;
+    updateBoardInput: object;
+  }
 
+  const onClickUpdate = async () => {
+    const updateBoardInput: IUpdateBoardInput = {};
+    // if (password) myVariables.password = password;
+    if (title) updateBoardInput.title = title;
+    if (contents) updateBoardInput.contents = contents;
+
+    try {
       const result = await updateBoard({
-        variables: myVariables,
+        variables: {
+          boardId: String(router.query.boardId),
+          password,
+          updateBoardInput,
+        },
       });
 
       alert("게시글이 수정되었습니다.");
-      router.push(`/boards/${result.data.updateBoard._id}`);
+      router.push(`/boards/${result?.data?.updateBoard._id}`);
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
   return (

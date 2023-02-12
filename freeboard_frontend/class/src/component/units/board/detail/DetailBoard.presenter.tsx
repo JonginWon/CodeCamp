@@ -1,12 +1,22 @@
 import * as Styles from "./DetailBoard.styles";
 import { getDate } from "../../../commons/libraries/utils";
+import {
+  IQuery,
+  IQueryFetchBoardArgs,
+} from "../../../../commons/types/generated/types";
+interface IProps {
+  data?: Pick<IQuery, "fetchBoard">;
+  onClickDelete: () => void;
+  onClickMoveToEditPage: () => void;
+  onClickMoveToListPage: () => void;
+}
 
 const DetailBoardPresenter = ({
   data,
   onClickDelete,
   onClickMoveToEditPage,
   onClickMoveToListPage,
-}) => {
+}: IProps) => {
   return (
     <>
       <Styles.Wrapper>

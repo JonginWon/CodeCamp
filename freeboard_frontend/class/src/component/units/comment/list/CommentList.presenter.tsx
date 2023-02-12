@@ -1,7 +1,8 @@
 import { getDate } from "../../../commons/libraries/utils";
 import * as S from "./CommentList.styles";
+import { CommentListProps } from "./CommentList.types";
 
-const CommentListPresenter = ({ data }) => {
+const CommentListPresenter = ({ data }: CommentListProps) => {
   return (
     <>
       <S.Wrapper>

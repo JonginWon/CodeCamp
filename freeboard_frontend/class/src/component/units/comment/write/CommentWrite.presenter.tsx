@@ -1,11 +1,11 @@
 import * as S from "./CommentWrite.styles";
-import { ContentsCount } from "./CommentWrite.styles";
+import { ICommentWriteProps } from "./CommentWrite.types";
 
 const CommentWritePresenter = ({
   onChangeContents,
   onChangeRating,
   onClickComment,
-}) => {
+}: ICommentWriteProps) => {
   return (
     <>
       <S.Wrapper>

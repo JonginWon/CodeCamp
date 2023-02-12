@@ -2,7 +2,7 @@ import CommentWritePresenter from "./CommentWrite.presenter";
 import { useMutation } from "@apollo/client";
 import { CREATE_BOARD_COMMENT } from "./CommentWrite.query";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { FETCH_BOARD_COMMENTS } from "../list/CommentList.query";
 
 const CommentWriteContainer = () => {
@@ -11,11 +11,11 @@ const CommentWriteContainer = () => {
   const [contents, setContents] = useState("");
   const [rating, setRating] = useState("");
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setContents(event.target.value);
   };
 
-  const onChangeRating = (event) => {
+  const onChangeRating = (event: ChangeEvent<HTMLInputElement>): void => {
     setRating(event.target.value);
   };
 
@@ -39,7 +39,7 @@ const CommentWriteContainer = () => {
 
       alert("댓글이 등록되었습니다.");
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) alert(error.message);
     }
   };
   return (
