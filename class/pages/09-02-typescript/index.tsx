@@ -20,7 +20,7 @@ const Qqq = () => {
   // 불리언타입
   let eee: boolean = true;
   eee = false;
-  eee = "false";
+  eee = "false"; // true로 작동함
 
   // 배열타입
   let fff: number[] = [1, 2, 3];
