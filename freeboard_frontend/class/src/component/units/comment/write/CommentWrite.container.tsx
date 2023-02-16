@@ -8,8 +8,13 @@ import { FETCH_BOARD_COMMENTS } from "../list/CommentList.query";
 const CommentWriteContainer = () => {
   const router = useRouter();
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [writer, setWriter] = useState("");
   const [contents, setContents] = useState("");
   const [rating, setRating] = useState("");
+
+  const conChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
+    setWriter(event.target.value);
+  };
 
   const onChangeContents = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setContents(event.target.value);
@@ -24,6 +29,7 @@ const CommentWriteContainer = () => {
       const result = await createBoardComment({
         variables: {
           createBoardCommentInput: {
+            writer,
             contents,
             rating: parseFloat(rating),
           },
@@ -45,6 +51,7 @@ const CommentWriteContainer = () => {
   return (
     <>
       <CommentWritePresenter
+        conChangeWriter={conChangeWriter}
         onChangeContents={onChangeContents}
         onChangeRating={onChangeRating}
         onClickComment={onClickComment}

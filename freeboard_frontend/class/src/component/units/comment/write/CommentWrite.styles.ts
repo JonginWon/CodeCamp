@@ -31,6 +31,9 @@ export const RatingWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
 `;
+export const Writer = styled.input`
+  margin-right: 10px;
+`;
 
 export const Rating = styled.input``;
 

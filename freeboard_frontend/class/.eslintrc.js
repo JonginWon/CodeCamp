@@ -6,7 +6,7 @@ module.exports = {
   extends: ["plugin:react/recommended", "standard-with-typescript", "prettier"],
   overrides: [],
   parserOptions: {
-    project: "**/tsconfig.json",
+    project: "tsconfig.json",
     ecmaVersion: "latest",
     sourceType: "module",
   },
@@ -17,5 +17,10 @@ module.exports = {
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
     "@typescript-eslint/triple-slash-reference": "off",
+  },
+  settings: {
+    react: {
+      version: "detect",
+    },
   },
 };

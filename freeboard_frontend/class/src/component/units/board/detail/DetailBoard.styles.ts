@@ -94,3 +94,22 @@ export const DeleteBtn = styled.button`
   border: 1px solid #bdbdbd;
   cursor: pointer;
 `;
+
+export const LikeBtnWrapper = styled.div`
+  display: flex;
+`;
+
+export const LikeBtn = styled.button`
+  border: none;
+  margin-right: 59px;
+  background-color: white;
+`;
+
+export const LickImg = styled.img``;
+
+export const DislikeBtn = styled.button`
+  border: none;
+  background-color: white;
+`;
+
+export const DislikeImg = styled.img``;

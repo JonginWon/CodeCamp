@@ -1,10 +1,12 @@
 import * as S from "./CommentWrite.styles";
 import { ICommentWriteProps } from "./CommentWrite.types";
+import StarRate from "../../../commons/libraries/starRate";
 
 const CommentWritePresenter = ({
   onChangeContents,
   onChangeRating,
   onClickComment,
+  conChangeWriter,
 }: ICommentWriteProps) => {
   return (
     <>
@@ -14,7 +16,9 @@ const CommentWritePresenter = ({
           <S.Guide>댓글</S.Guide>
         </S.GuideWrapper>
         <S.RatingWrapper>
+          이름: <S.Writer type="text" onChange={conChangeWriter} />
           점수: <S.Rating type="text" onChange={onChangeRating} />
+          <StarRate />
         </S.RatingWrapper>
         <S.ContentsWrapper>
           <S.Contents

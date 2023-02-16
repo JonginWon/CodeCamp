@@ -4,6 +4,7 @@ import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
+import { LikeBtnWrapper } from "./DetailBoard.styles";
 interface IProps {
   data?: Pick<IQuery, "fetchBoard">;
   onClickDelete: () => void;
@@ -36,6 +37,14 @@ const DetailBoardPresenter = ({
             <Styles.Title>{data?.fetchBoard?.title}</Styles.Title>
             <Styles.Contents>{data?.fetchBoard?.contents}</Styles.Contents>
           </Styles.Body>
+          <Styles.LikeBtnWrapper>
+            <Styles.LikeBtn>
+              <Styles.LickImg src="/images/board/like.png" />
+            </Styles.LikeBtn>
+            <Styles.DislikeBtn>
+              <Styles.DislikeImg src="/images/board/dislike.png" />
+            </Styles.DislikeBtn>
+          </Styles.LikeBtnWrapper>
         </Styles.CardWrapper>
         <Styles.ButtonWrapper>
           <Styles.ListBtn onClick={onClickMoveToListPage}>

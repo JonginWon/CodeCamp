@@ -11,7 +11,7 @@ const CommentListPresenter = ({ data }: CommentListProps) => {
             <S.Avatar src="/images/board/avatar.png" />
             <S.CommentInfoWrapper>
               <S.CommentTop>
-                <S.Writer>원종인</S.Writer>
+                <S.Writer>{el.writer}</S.Writer>
                 <S.Rating>{el.rating}</S.Rating>
               </S.CommentTop>
               <S.Contents>{el.contents}</S.Contents>

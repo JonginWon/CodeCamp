@@ -15,6 +15,7 @@ const CreateBoardPresenter = ({
   isEdit,
   data,
   onClickUpdate,
+  onChangeYoutubeUrl,
 }: ICreateBoardProps) => {
   return (
     <>
@@ -24,7 +25,7 @@ const CreateBoardPresenter = ({
           <Styles.InputWrapper>
             <Styles.Label>작성자</Styles.Label>
             <Styles.Writer
-              defaultValue={String(data?.fetchBoard.writer)}
+              // defaultValue={data?.fetchBoard.writer}
               placeholder="이름을 적어주세요."
               onChange={onChangeWriter}
             />
@@ -74,7 +75,10 @@ const CreateBoardPresenter = ({
 
         <Styles.InputWrapper>
           <Styles.Label>유튜브</Styles.Label>
-          <Styles.YoutubeLink placeholder="링크를 복사해주세요." />
+          <Styles.YoutubeLink
+            placeholder="링크를 복사해주세요."
+            onChange={onChangeYoutubeUrl}
+          />
         </Styles.InputWrapper>
 
         <Styles.ImageWrapper>

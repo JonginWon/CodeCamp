@@ -27,6 +27,7 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
@@ -85,6 +86,10 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
     }
   };
 
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(event.target.value);
+  };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -109,6 +114,7 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
               password,
               title,
               contents,
+              youtubeUrl,
             },
           },
         });
@@ -155,6 +161,7 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
         onChangePassword={onChangePassword}
         onChangeTitle={onChangeTitle}
         onChangeContents={onChangeContents}
+        onChangeYoutubeUrl={onChangeYoutubeUrl}
         onClickSubmit={onClickSubmit}
         writerError={writerError}
         passwordError={passwordError}
