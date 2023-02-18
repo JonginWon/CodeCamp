@@ -1,5 +1,6 @@
 import * as Styles from "./CreateBoard.styles";
 import { ICreateBoardProps } from "./CreateBoard.types";
+import AddressModalContainer from "../../../commons/libraries/addressModal/addressModal.container";
 
 const CreateBoardPresenter = ({
   onChangeWriter,
@@ -17,6 +18,7 @@ const CreateBoardPresenter = ({
   onClickUpdate,
   onChangeYoutubeUrl,
 }: ICreateBoardProps) => {
+  // @ts-ignore
   return (
     <>
       <Styles.Wrapper>
@@ -65,12 +67,7 @@ const CreateBoardPresenter = ({
 
         <Styles.InputWrapper>
           <Styles.Label>주소</Styles.Label>
-          <Styles.ZipcodeWrapper>
-            <Styles.Zipcode placeholder="07250" />
-            <Styles.SearchButton>우편번호 검색</Styles.SearchButton>
-          </Styles.ZipcodeWrapper>
-          <Styles.DetailedAddress />
-          <Styles.DetailedAddress />
+          <AddressModalContainer />
         </Styles.InputWrapper>
 
         <Styles.InputWrapper>
@@ -83,9 +80,7 @@ const CreateBoardPresenter = ({
 
         <Styles.ImageWrapper>
           <Styles.Label>사진 첨부</Styles.Label>
-          <Styles.Picture></Styles.Picture>
-          <Styles.Picture></Styles.Picture>
-          <Styles.Picture></Styles.Picture>
+          <Styles.ImgUpload></Styles.ImgUpload>
         </Styles.ImageWrapper>
 
         <Styles.OptionWrapper>

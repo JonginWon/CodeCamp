@@ -1,6 +1,5 @@
 import * as S from "./CommentWrite.styles";
 import { ICommentWriteProps } from "./CommentWrite.types";
-import StarRate from "../../../commons/libraries/starRate";
 
 const CommentWritePresenter = ({
   onChangeContents,
@@ -17,8 +16,7 @@ const CommentWritePresenter = ({
         </S.GuideWrapper>
         <S.RatingWrapper>
           이름: <S.Writer type="text" onChange={conChangeWriter} />
-          점수: <S.Rating type="text" onChange={onChangeRating} />
-          <StarRate />
+          <S.Star allowHalf onChange={onChangeRating} />
         </S.RatingWrapper>
         <S.ContentsWrapper>
           <S.Contents

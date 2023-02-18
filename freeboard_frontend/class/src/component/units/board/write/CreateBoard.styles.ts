@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { ISubmitBtnProps } from "./CreateBoard.types";
+import { Upload } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -87,6 +88,7 @@ export const SearchButton = styled.button`
   background: #000000;
   color: #ffffff;
 `;
+
 export const DetailedAddress = styled.input`
   display: block;
   width: 996px;
@@ -120,6 +122,7 @@ export const OptionWrapper = styled.div`
   width: 996px;
   padding-top: 40px;
 `;
+
 export const RadioButton = styled.input`
   cursor: pointer;
 `;
@@ -154,4 +157,9 @@ export const SubmitButton = styled.button`
 export const Error = styled.div`
   color: red;
   font-size: 15px;
+`;
+
+export const ImgUpload = styled(Upload)`
+  width: 78px;
+  height: 78px;
 `;

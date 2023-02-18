@@ -1,5 +1,6 @@
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { type AppProps } from "next/app";
+import "antd/dist/antd.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -7,10 +8,9 @@ export default function App({ Component, pageProps }: AppProps) {
     cache: new InMemoryCache(),
   });
 
-  // @ts-ignore
   return (
     <ApolloProvider client={client}>
-      <Componente {...pageProps} />
+      <Component {...pageProps} />
     </ApolloProvider>
   );
 }

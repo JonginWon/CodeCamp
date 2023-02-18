@@ -154,6 +154,7 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
       if (error instanceof Error) alert(error.message);
     }
   };
+
   return (
     <>
       <CreateBoardPresenter

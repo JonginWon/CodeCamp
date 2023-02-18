@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -69,3 +70,5 @@ export const RegisterBtn = styled.button`
   color: white;
   cursor: pointer;
 `;
+
+export const Star = styled(Rate)``;

@@ -10,7 +10,7 @@ const CommentWriteContainer = () => {
   const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
   const [writer, setWriter] = useState("");
   const [contents, setContents] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(3);
 
   const conChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
@@ -20,8 +20,8 @@ const CommentWriteContainer = () => {
     setContents(event.target.value);
   };
 
-  const onChangeRating = (event: ChangeEvent<HTMLInputElement>): void => {
-    setRating(event.target.value);
+  const onChangeRating = (event: number): void => {
+    setRating(event);
   };
 
   const onClickComment = async () => {
@@ -31,7 +31,7 @@ const CommentWriteContainer = () => {
           createBoardCommentInput: {
             writer,
             contents,
-            rating: parseFloat(rating),
+            rating,
           },
           boardId: router.query.boardId,
         },

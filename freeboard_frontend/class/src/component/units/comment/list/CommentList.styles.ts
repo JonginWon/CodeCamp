@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -38,7 +39,9 @@ export const Writer = styled.div`
   margin-right: 18px;
 `;
 
-export const Rating = styled.div``;
+export const Star = styled(Rate)`
+  line-height: 20px;
+`;
 
 export const Contents = styled.div`
   font-weight: 400;
