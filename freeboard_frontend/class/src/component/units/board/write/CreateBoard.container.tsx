@@ -1,19 +1,19 @@
 import { useRouter } from "next/router";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { ChangeEvent, useState } from "react";
 import { CREATE_BOARD, UPDATE_BOARD } from "./CreateBoard.query";
 import CreateBoardPresenter from "./CreateBoard.presenter";
-import { FETCH_BOARD } from "../detail/DetailBoard.query";
 import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
-  IQuery,
 } from "../../../../commons/types/generated/types";
 import { IEditBoard, IUpdateBoardInput } from "./CreateBoard.types";
+import { Address } from "react-daum-postcode";
 
 const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
   const router = useRouter();
+
   const [createBoard] = useMutation<
     Pick<IMutation, "createBoard">,
     IMutationCreateBoardArgs
@@ -22,6 +22,9 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
     Pick<IMutation, "updateBoard">,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
+
+  const [btnColor, setBtnColor] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +35,9 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
   const [passwordError, setPasswordError] = useState("");
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
-  const [btnColor, setBtnColor] = useState(false);
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -114,7 +119,11 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
               password,
               title,
               contents,
-              youtubeUrl,
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail,
+              },
             },
           },
         });
@@ -127,17 +136,18 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
     }
   };
 
-  interface IMyVariables {
-    boardId: string;
-    password: string;
-    updateBoardInput: object;
-  }
-
   const onClickUpdate = async () => {
     const updateBoardInput: IUpdateBoardInput = {};
     // if (password) myVariables.password = password;
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
+    if (zipcode || address || addressDetail) {
+      updateBoardInput.boardAddress = {};
+      if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) updateBoardInput.boardAddress.address = address;
+      if (addressDetail)
+        updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
 
     try {
       const result = await updateBoard({
@@ -153,6 +163,20 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+  };
+
+  const onToggleModal = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const handleComplete = (data: Address) => {
+    setZipcode(data.zonecode);
+    setAddress(data.address);
+    onToggleModal();
+  };
+
+  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
+    setAddressDetail(event.target.value);
   };
 
   return (
@@ -172,6 +196,12 @@ const CreateBoardContainer = ({ isEdit, data }: IEditBoard) => {
         isEdit={isEdit}
         data={data}
         onClickUpdate={onClickUpdate}
+        isOpen={isOpen}
+        onToggleModal={onToggleModal}
+        handleComplete={handleComplete}
+        zipcode={zipcode}
+        address={address}
+        onChangeAddressDetail={onChangeAddressDetail}
       />
     </>
   );

@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ISubmitBtnProps } from "./CreateBoard.types";
-import { Upload } from "antd";
+import { Button, Upload } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -33,7 +33,7 @@ export const Title = styled.div`
 
 export const UserWrapper = styled.div`
   display: flex;
-  width: 85%;
+  width: 996px;
   flex-direction: row;
   justify-content: space-between;
   padding-top: 40px;
@@ -74,6 +74,7 @@ export const Contents = styled.textarea`
 export const ZipcodeWrapper = styled.div`
   margin-bottom: 16px;
 `;
+
 export const Zipcode = styled.input`
   width: 77px;
   height: 52px;
@@ -81,8 +82,10 @@ export const Zipcode = styled.input`
   padding-left: 16px;
   border: 1px solid #bdbdbd;
   margin-right: 16px;
+  outline: none;
 `;
-export const SearchButton = styled.button`
+
+export const ModalButton = styled(Button)`
   width: 124px;
   height: 52px;
   background: #000000;
@@ -94,8 +97,10 @@ export const DetailedAddress = styled.input`
   width: 996px;
   height: 52px;
   margin-bottom: 30px;
+  padding-left: 16px;
   background: #ffffff;
   border: 1px solid #bdbdbd;
+  outline: none;
 `;
 
 export const YoutubeLink = styled.input`

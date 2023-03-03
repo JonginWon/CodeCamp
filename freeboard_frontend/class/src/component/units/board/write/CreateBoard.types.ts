@@ -1,5 +1,6 @@
 import { IQuery } from "../../../../commons/types/generated/types";
 import { ChangeEvent } from "react";
+import { Address } from "react-daum-postcode";
 
 export interface ICreateBoardProps {
   writerError: string;
@@ -11,11 +12,17 @@ export interface ICreateBoardProps {
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onChangeYoutubeUrl: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeAddressDetail: (event: ChangeEvent<HTMLInputElement>) => void;
   onClickSubmit: () => void;
   btnColor: boolean;
   isEdit: boolean;
   data?: Pick<IQuery, "fetchBoard">;
   onClickUpdate: () => void;
+  isOpen: boolean;
+  onToggleModal: () => void;
+  handleComplete: (data: Address) => void;
+  zipcode: string;
+  address: string;
 }
 
 export interface IEditBoard {
@@ -30,4 +37,5 @@ export interface ISubmitBtnProps {
 export interface IUpdateBoardInput {
   title?: string;
   contents?: string;
+  boardAddress?: { zipcode?: string; address?: string; addressDetail?: string };
 }

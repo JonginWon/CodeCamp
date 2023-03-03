@@ -1,6 +1,7 @@
-import * as Styles from "./CreateBoard.styles";
+import * as S from "./CreateBoard.styles";
 import { ICreateBoardProps } from "./CreateBoard.types";
-import AddressModalContainer from "../../../commons/libraries/addressModal/addressModal.container";
+import { Modal } from "antd";
+import DaumPostcodeEmbed from "react-daum-postcode";
 
 const CreateBoardPresenter = ({
   onChangeWriter,
@@ -17,89 +18,125 @@ const CreateBoardPresenter = ({
   data,
   onClickUpdate,
   onChangeYoutubeUrl,
+  isOpen,
+  onToggleModal,
+  handleComplete,
+  zipcode,
+  address,
+  onChangeAddressDetail,
 }: ICreateBoardProps) => {
-  // @ts-ignore
   return (
     <>
-      <Styles.Wrapper>
-        <Styles.Title>게시물 {isEdit ? "수정" : "등록"}</Styles.Title>
-        <Styles.UserWrapper>
-          <Styles.InputWrapper>
-            <Styles.Label>작성자</Styles.Label>
-            <Styles.Writer
-              // defaultValue={data?.fetchBoard.writer}
+      <S.Wrapper>
+        <S.Title>게시물 {isEdit ? "수정" : "등록"}</S.Title>
+        <S.UserWrapper>
+          <S.InputWrapper>
+            <S.Label>작성자</S.Label>
+            <S.Writer
+              defaultValue={data?.fetchBoard.writer ?? ""}
               placeholder="이름을 적어주세요."
               onChange={onChangeWriter}
             />
-            <Styles.Error>{writerError}</Styles.Error>
-          </Styles.InputWrapper>
+            <S.Error>{writerError}</S.Error>
+          </S.InputWrapper>
 
-          <Styles.InputWrapper>
-            <Styles.Label>비밀번호</Styles.Label>
-            <Styles.Password
+          <S.InputWrapper>
+            <S.Label>비밀번호</S.Label>
+            <S.Password
               type="password"
               onChange={onChangePassword}
               placeholder="비밀번호를 입력해주세요."
             />
-            <Styles.Error>{passwordError}</Styles.Error>
-          </Styles.InputWrapper>
-        </Styles.UserWrapper>
+            <S.Error>{passwordError}</S.Error>
+          </S.InputWrapper>
+        </S.UserWrapper>
 
-        <Styles.InputWrapper>
-          <Styles.Label>제목</Styles.Label>
-          <Styles.Subject
+        <S.InputWrapper>
+          <S.Label>제목</S.Label>
+          <S.Subject
             defaultValue={data?.fetchBoard?.title}
             placeholder="제목을 작성해주세요."
             onChange={onChangeTitle}
           />
-          <Styles.Error>{titleError}</Styles.Error>
-        </Styles.InputWrapper>
+          <S.Error>{titleError}</S.Error>
+        </S.InputWrapper>
 
-        <Styles.InputWrapper>
-          <Styles.Label>내용</Styles.Label>
-          <Styles.Contents
+        <S.InputWrapper>
+          <S.Label>내용</S.Label>
+          <S.Contents
             defaultValue={data?.fetchBoard?.contents}
             placeholder="내용을 작성해주세요."
             onChange={onChangeContents}
           />
-          <Styles.Error>{contentsError}</Styles.Error>
-        </Styles.InputWrapper>
+          <S.Error>{contentsError}</S.Error>
+        </S.InputWrapper>
 
-        <Styles.InputWrapper>
-          <Styles.Label>주소</Styles.Label>
-          <AddressModalContainer />
-        </Styles.InputWrapper>
+        <S.InputWrapper>
+          <S.Label>주소</S.Label>
+          <S.ZipcodeWrapper>
+            <S.Zipcode
+              type="text"
+              readOnly
+              placeholder="07250"
+              value={(zipcode || data?.fetchBoard?.boardAddress?.zipcode) ?? ""}
+            />
+            <S.ModalButton type="primary" onClick={onToggleModal}>
+              우편번호 검색
+            </S.ModalButton>
 
-        <Styles.InputWrapper>
-          <Styles.Label>유튜브</Styles.Label>
-          <Styles.YoutubeLink
+            {isOpen && (
+              <Modal
+                title="주소 검색"
+                // open={isOpen} 오류 발생
+                visible={true} // 오류 해결
+                onOk={onToggleModal}
+                onCancel={onToggleModal}
+              >
+                <DaumPostcodeEmbed onComplete={handleComplete} />
+              </Modal>
+            )}
+          </S.ZipcodeWrapper>
+          <S.DetailedAddress
+            readOnly
+            value={(address || data?.fetchBoard?.boardAddress?.address) ?? ""}
+          />
+          <S.DetailedAddress
+            placeholder="상세 주소를 입력해주세요."
+            onChange={onChangeAddressDetail}
+            defaultValue={data?.fetchBoard?.boardAddress?.addressDetail ?? ""}
+          />
+        </S.InputWrapper>
+
+        <S.InputWrapper>
+          <S.Label>유튜브</S.Label>
+          <S.YoutubeLink
             placeholder="링크를 복사해주세요."
             onChange={onChangeYoutubeUrl}
           />
-        </Styles.InputWrapper>
+        </S.InputWrapper>
 
-        <Styles.ImageWrapper>
-          <Styles.Label>사진 첨부</Styles.Label>
-          <Styles.ImgUpload></Styles.ImgUpload>
-        </Styles.ImageWrapper>
+        <S.ImageWrapper>
+          <S.Label>사진 첨부</S.Label>
+          <S.ImgUpload></S.ImgUpload>
+        </S.ImageWrapper>
 
-        <Styles.OptionWrapper>
-          <Styles.Label>메인 설정</Styles.Label>
-          <Styles.RadioButton type="radio" id="youtube" name="radio-button" />
-          <Styles.RadioLabel htmlFor="youtube">유튜브</Styles.RadioLabel>
-          <Styles.RadioButton type="radio" id="image" name="radio-button" />
-          <Styles.RadioLabel htmlFor="image">사진</Styles.RadioLabel>
-        </Styles.OptionWrapper>
+        <S.OptionWrapper>
+          <S.Label>메인 설정</S.Label>
+          <S.RadioButton type="radio" id="youtube" name="radio-button" />
+          <S.RadioLabel htmlFor="youtube">유튜브</S.RadioLabel>
+          <S.RadioButton type="radio" id="image" name="radio-button" />
+          <S.RadioLabel htmlFor="image">사진</S.RadioLabel>
+        </S.OptionWrapper>
 
-        <Styles.ButtonWrapper>
-          <Styles.SubmitButton
+        <S.ButtonWrapper>
+          <S.SubmitButton
             onClick={isEdit ? onClickUpdate : onClickSubmit}
             btnColor={btnColor}
           >
             {isEdit ? "수정" : "등록"}하기
-          </Styles.SubmitButton>
-        </Styles.ButtonWrapper>
-      </Styles.Wrapper>
+          </S.SubmitButton>
+        </S.ButtonWrapper>
+      </S.Wrapper>
     </>
   );
 };
